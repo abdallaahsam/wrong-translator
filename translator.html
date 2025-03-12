@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مترجم لوحة المفاتيح العربية-الإنجليزية</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2ecc71;
+            --secondary-dark: #27ae60;
+            --danger: #e74c3c;
+            --danger-dark: #c0392b;
+            --warning: #f39c12;
+            --warning-dark: #d35400;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .app-header {
+            background-color: var(--dark);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .app-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .app-header p {
+            opacity: 0.8;
+            font-size: 16px;
+        }
+
+        .app-body {
+            padding: 25px;
+        }
+
+        .direction-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: var(--light);
+            border-radius: 30px;
+            padding: 5px;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .direction-btn {
+            flex: 1;
+            background-color: transparent;
+            color: var(--dark);
+            border: none;
+            padding: 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+            outline: none;
+            max-width: 220px;
+        }
+
+        .direction-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .text-boxes {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .text-boxes {
+                flex-direction: row;
+            }
+        }
+
+        .text-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .text-box-title {
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 18px;
+        }
+
+        .text-box-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .icon-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--dark);
+            cursor: pointer;
+            font-size: 18px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background-color: var(--light);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            font-size: 16px;
+            resize: vertical;
+            transition: var(--transition);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-success {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-dark);
+        }
+
+        .accordion {
+            margin-top: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: var(--light);
+            padding: 15px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .key-mapping {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 20px;
+        }
+
+        .key-pair {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            font-size: 15px;
+        }
+
+        .usage-guide {
+            padding: 20px;
+        }
+
+        .usage-steps {
+            list-style-type: none;
+        }
+        
+        .usage-steps li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-right: 25px;
+        }
+
+        .usage-steps li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
+
+        .theme-switch {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .theme-switch:hover {
+            opacity: 1;
+        }
+
+        .dark-theme {
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            color: white;
+        }
+
+        .dark-theme .app-container {
+            background-color: #2c3e50;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-theme .app-header {
+            background-color: #1a2530;
+        }
+
+        .dark-theme textarea {
+            background-color: #34495e;
+            color: white;
+            border-color: #4a6278;
+        }
+
+        .dark-theme .accordion {
+            border-color: #4a6278;
+        }
+
+        .dark-theme .accordion-header {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .dark-theme .key-pair {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .dark-theme .direction-switch {
+            background-color: #34495e;
+        }
+
+        .dark-theme .direction-btn {
+            color: #ecf0f1;
+        }
+
+        .dark-theme .icon-btn {
+            color: white;
+        }
+
+        .dark-theme .icon-btn:hover {
+            background-color: #4a6278;
+        }
+
+        .dark-theme .text-box-title {
+            color: white;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--dark);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Loading animation */
+        .loading-spinner {
+            display: none;
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(52, 152, 219, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .btn-row {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <button id="theme-switch" class="theme-switch">🌙</button>
+            <h1>مترجم لوحة المفاتيح العربية-الإنجليزية</h1>
+            <p>حوّل بسهولة بين الكتابة العربية والإنجليزية</p>
+        </div>
+        
+        <div class="app-body">
+            <div class="direction-switch">
+                <button id="english-to-arabic" class="direction-btn active">من الإنجليزية إلى العربية</button>
+                <button id="arabic-to-english" class="direction-btn">من العربية إلى الإنجليزية</button>
+            </div>
+            
+            <div class="text-boxes">
+                <div class="text-box">
+                    <div class="text-box-header">
+                        <div class="text-box-title">النص الأصلي</div>
+                        <div class="text-box-actions">
+                            <button id="paste-btn" class="icon-btn" title="لصق من الحافظة">📋</button>
+                            <button id="clear-input-btn" class="icon-btn" title="مسح النص">🗑️</button>
+                        </div>
+                    </div>
+                    <textarea id="input-text" placeholder="اكتب أو الصق النص هنا..." autocomplete="off" spellcheck="false"></textarea>
+                </div>
+                
+                <div class="text-box">
+                    <div class="text-box-header">
+                        <div class="text-box-title">النص المترجم</div>
+                        <div class="text-box-actions">
+                            <button id="copy-btn" class="icon-btn" title="نسخ إلى الحافظة">📋</button>
+                            <button id="clear-output-btn" class="icon-btn" title="مسح النص">🗑️</button>
+                        </div>
+                    </div>
+                    <textarea id="output-text" placeholder="النص المترجم سيظهر هنا..." readonly></textarea>
+                </div>
+            </div>
+            
+            <div class="loading-spinner" id="loading-spinner"></div>
+            
+            <div class="btn-row">
+                <button id="translate-btn" class="btn btn-primary">
+                    <span>ترجم النص</span> 🔄
+                </button>
+                <button id="swap-btn" class="btn btn-success">
+                    <span>تبديل النصوص</span> ↔️
+                </button>
+                <button id="clear-all-btn" class="btn btn-danger">
+                    <span>مسح الكل</span> 🗑️
+                </button>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header" id="keymap-header">
+                    <span>جدول الحروف المستخدم</span>
+                    <span>🔽</span>
+                </div>
+                <div class="accordion-content" id="keymap-content">
+                    <div class="key-mapping" id="key-mapping"></div>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header" id="usage-header">
+                    <span>دليل الاستخدام</span>
+                    <span>🔽</span>
+                </div>
+                <div class="accordion-content" id="usage-content">
+                    <div class="usage-guide">
+                        <ul class="usage-steps">
+                            <li>اختر اتجاه الترجمة من شريط الاختيار أعلى الصفحة.</li>
+                            <li>اكتب أو الصق النص في مربع النص الأيمن.</li>
+                            <li>سيتم ترجمة النص تلقائياً وعرضه في مربع النص الأيسر.</li>
+                            <li>استخدم زر "نسخ" لنسخ النص المترجم إلى الحافظة.</li>
+                            <li>يمكنك استخدام زر "تبديل النصوص" لنقل النص المترجم إلى مربع الإدخال.</li>
+                            <li>اضغط على زر "مسح الكل" لمسح جميع النصوص.</li>
+                            <li>يمكنك تغيير وضع الألوان باستخدام زر تبديل السمة في أعلى اليسار.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // تعريف جدول التحويل
+        const englishToArabic = {
+            'q': 'ض', 'w': 'ص', 'e': 'ث', 'r': 'ق', 't': 'ف', 'y': 'غ', 'u': 'ع',
+            'i': 'ه', 'o': 'خ', 'p': 'ح', '[': 'ج', ']': 'د', 'a': 'ش', 's': 'س',
+            'd': 'ي', 'f': 'ب', 'g': 'ل', 'h': 'ا', 'j': 'ت', 'k': 'ن', 'l': 'م',
+            ';': 'ك', "'": 'ط', 'z': 'ئ', 'x': 'ء', 'c': 'ؤ', 'v': 'ر', 'b': 'لا',
+            'n': 'ى', 'm': 'ة', ',': 'و', '.': 'ز', '/': 'ظ', 'Q': 'َ', 'W': 'ً', 
+            'E': 'ُ', 'R': 'ٌ', 'T': 'لإ', 'Y': 'إ', 'U': "'", 'I': '÷', 'O': '×', 
+            'P': '؛', '{': '<', '}': '>', 'A': 'ِ', 'S': 'ٍ', 'D': ']', 'F': '[', 
+            'G': 'لأ', 'H': 'أ', 'J': '־', 'K': '،', 'L': '/', ':': ':', '"': '"', 
+            'Z': '~', 'X': 'ْ', 'C': '}', 'V': '{', 'B': 'لآ', 'N': 'آ', 'M': "'", 
+            '<': ',', '>': '.', '?': '؟', ' ': ' ', '\n': '\n'
+        };
+
+        // إنشاء جدول التحويل العكسي
+        const arabicToEnglish = {};
+        for (const [engChar, arChar] of Object.entries(englishToArabic)) {
+            arabicToEnglish[arChar] = engChar;
+        }
+
+        // عناصر DOM
+        const elements = {
+            inputText: document.getElementById('input-text'),
+            outputText: document.getElementById('output-text'),
+            translateBtn: document.getElementById('translate-btn'),
+            copyBtn: document.getElementById('copy-btn'),
+            clearInputBtn: document.getElementById('clear-input-btn'),
+            clearOutputBtn: document.getElementById('clear-output-btn'),
+            clearAllBtn: document.getElementById('clear-all-btn'),
+            swapBtn: document.getElementById('swap-btn'),
+            pasteBtn: document.getElementById('paste-btn'),
+            enToArBtn: document.getElementById('english-to-arabic'),
+            arToEnBtn: document.getElementById('arabic-to-english'),
+            keyMappingContainer: document.getElementById('key-mapping'),
+            keymapHeader: document.getElementById('keymap-header'),
+            keymapContent: document.getElementById('keymap-content'),
+            usageHeader: document.getElementById('usage-header'),
+            usageContent: document.getElementById('usage-content'),
+            notification: document.getElementById('notification'),
+            loadingSpinner: document.getElementById('loading-spinner'),
+            themeSwitch: document.getElementById('theme-switch')
+        };
+
+        // حالة التطبيق
+        let state = {
+            currentMode: 'english-to-arabic',
+            isDarkTheme: false,
+            isTranslating: false
+        };
+
+        // عرض جدول التحويل
+        function populateKeyMapping() {
+            elements.keyMappingContainer.innerHTML = '';
+            
+            const filteredChars = Object.entries(englishToArabic).filter(([engChar]) => 
+                engChar.length === 1 && /[a-z\[\]\\;',\.\/]/.test(engChar)
+            );
+            
+            for (const [engChar, arChar] of filteredChars) {
+                const keyPairElement = document.createElement('div');
+                keyPairElement.className = 'key-pair';
+                keyPairElement.textContent = `${engChar} = ${arChar}`;
+                elements.keyMappingContainer.appendChild(keyPairElement);
+            }
+        }
+
+        // وظيفة التحويل
+        function translateText() {
+            if (state.isTranslating) return;
+            
+            const input = elements.inputText.value;
+            if (!input.trim()) return;
+            
+            state.isTranslating = true;
+            elements.loadingSpinner.style.display = 'block';
+            
+            // استخدام setTimeout لمحاكاة معالجة النصوص الكبيرة
+            setTimeout(() => {
+                let output = '';
+                
+                if (state.currentMode === 'english-to-arabic') {
+                    for (let i = 0; i < input.length; i++) {
+                        const char = input[i];
+                        output += englishToArabic[char] || char;
+                    }
+                } else {
+                    for (let i = 0; i < input.length; i++) {
+                        const char = input[i];
+                        output += arabicToEnglish[char] || char;
+                    }
+                }
+                
+                elements.outputText.value = output;
+                elements.loadingSpinner.style.display = 'none';
+                state.isTranslating = false;
+                
+                // عرض إشعار بنجاح العملية
+                showNotification('تمت الترجمة بنجاح! 🎉');
+            }, 300);
+        }
+
+        // وظيفة تبديل الاتجاه
+        function switchDirection(direction) {
+            state.currentMode = direction;
+            
+            if (direction === 'english-to-arabic') {
+                elements.enToArBtn.classList.add('active');
+                elements.arToEnBtn.classList.remove('active');
+            } else {
+                elements.arToEnBtn.classList.add('active');
+                elements.enToArBtn.classList.remove('active');
+            }
+            
+            // إعادة الترجمة بالاتجاه الجديد
+            if (elements.inputText.value.trim()) {
+                translateText();
+            }
+        }
+
+        // وظيفة تبديل النصوص
+        function swapTexts() {
+            const tempText = elements.inputText.value;
+            elements.inputText.value = elements.outputText.value;
+            elements.outputText.value = tempText;
+            showNotification('تم تبديل النصوص! 🔄');
+        }
+
+        // وظيفة النسخ
+        function copyToClipboard() {
+            const outputText = elements.outputText.value;
+            if (!outputText.trim()) return;
+            
+            navigator.clipboard.writeText(outputText)
+                .then(() => {
+                    showNotification('تم نسخ النص إلى الحافظة! 📋');
+                })
+                .catch(() => {
+                    // استخدام الطريقة التقليدية إذا فشلت واجهة Clipboard API
+                    elements.outputText.select();
+                    document.execCommand('copy');
+                    showNotification('تم نسخ النص إلى الحافظة! 📋');
+                });
+        }
+
+        // وظيفة اللصق
+        function pasteFromClipboard() {
+            navigator.clipboard.readText()
+                .then(text => {
+                    elements.inputText.value = text;
+                    translateText();
+                    showNotification('تم لصق النص! 📄');
+                })
+                .catch(() => {
+                    showNotification('فشل لصق النص. يرجى المحاولة يدوياً.', 'error');
+                });
+        }
+
+        // وظيفة مسح النصوص
+        function clearInputText() {
+            elements.inputText.value = '';
+            showNotification('تم مسح النص الأصلي! 🧹');
+        }
+
+        function clearOutputText() {
+            elements.outputText.value = '';
+            showNotification('تم مسح النص المترجم! 🧹');
+        }
+
+        function clearAllTexts() {
+            elements.inputText.value = '';
+            elements.outputText.value = '';
+            showNotification('تم مسح جميع النصوص! 🧹');
+        }
+
+        // وظيفة الإشعارات
+        function showNotification(message, type = 'success') {
+            elements.notification.textContent = message;
+            elements.notification.className = 'notification show';
+            
+            if (type === 'error') {
+                elements.notification.style.backgroundColor = 'var(--danger)';
+            } else {
+                elements.notification.style.backgroundColor = 'var(--dark)';
+            }
+            
+            setTimeout(() => {
+                elements.notification.className = 'notification';
+            }, 3000);
+        }
+
+        // وظيفة تبديل السمة
+        function toggleTheme() {
+            state.isDarkTheme = !state.isDarkTheme;
+            
+            if (state.isDarkTheme) {
+                document.body.classList.add('dark-theme');
+                elements.themeSwitch.textContent = '☀️';
+            } else {
+                document.body.classList.remove('dark-theme');
+                elements.themeSwitch.textContent = '🌙';
+            }
+        }
+
+        // وظيفة تبديل الأكورديون
+        function toggleAccordion(headerElement, contentElement) {
+            contentElement.classList.toggle('active');
+            
+            // تغيير رمز السهم
+            const arrow = headerElement.querySelector('span:last-child');
+            if (contentElement.classList.contains('active')) {
+                arrow.textContent = '🔼';
+            } else {
+                arrow.textContent = '🔽';
+            }
+        }
+
+        // إعداد الأحداث
+        function setupEventListeners() {
+            elements.translateBtn.addEventListener('click', translateText);
+            
+            elements.copyBtn.addEventListener('click', copyToClipboard);
+            elements.pasteBtn.addEventListener('click', pasteFromClipboard);
+            
+            elements.clearInputBtn.addEventListener('click', clearInputText);
+            elements.clearOutputBtn.addEventListener('click', clearOutputText);
+            elements.clearAllBtn.addEventListener('click', clearAllTexts);
+            
+            elements.swapBtn.addEventListener('click', swapTexts);
+            
+            elements.enToArBtn.addEventListener('click', () => switchDirection('english-to-arabic'));
+            elements.arToEnBtn.addEventListener('click', () => switchDirection('arabic-to-english'));
+            
+            // الترجمة التلقائية عند الكتابة
+            elements.inputText.addEventListener('input', translateText);
+            
+            // أحداث الأكورديون
+            elements.keymapHeader.addEventListener('click', () => 
+                toggleAccordion(elements.keymapHeader, elements.keymapContent)
+            );
+            
+            elements.usageHeader.addEventListener('click', () => 
+                toggleAccordion(elements.usageHeader, elements.usageContent)
+            );
+            
+            // حدث تبديل السمة
+            elements.themeSwitch.addEventListener('click', toggleTheme);
+
+            // معالجة أحداث لوحة المفاتيح
+            document.addEventListener('keydown', (e) => {
+                // Ctrl+Enter لترجمة النص
+                if (e.ctrlKey && e.key === 'Enter') {
+                    translateText();
+                }
+                
+                // Ctrl+C لنسخ النص المترجم
+                if (e.ctrlKey && e.key === 'c' && document.activeElement !== elements.inputText) {
+                    copyToClipboard();
+                }
+            });
+        }
+
+        // تهيئة التطبيق
+        function initApp() {
+            populateKeyMapping();
+            setupEventListeners();
+        }
+
+        // بدء التطبيق
+        initApp();
+    </script>
+</body>
+</html>
